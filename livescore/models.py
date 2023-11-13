@@ -1,145 +1,128 @@
 from django.db import models
 
 
-class TodaysMatches(models.Model):
-    hometeam = models.TextField(default='t')
-    awayteam = models.TextField(default='t')
-    hometeamColor = models.TextField(default='t')
-    awayteamColor = models.TextField(default='t')
-    homescore = models.TextField(default='-')
-    awayscore = models.TextField(default='-')
-    status = models.TextField(default='s')
-    matchid = models.IntegerField(default=0)
-    statusCode = models.IntegerField(default=0)
-    league = models.IntegerField(default=0)
-    startTime = models.IntegerField(default=0)
-    def __str__(self):
-        return f'{self.hometeam} V {self.awayteam}'
-
 class AllMatches(models.Model):
-    hometeam = models.TextField(default='t')
-    awayteam = models.TextField(default='t')
-    hometeamColor = models.TextField(default='t')
-    awayteamColor = models.TextField(default='t')
-    homescore = models.TextField(default='-')
-    awayscore = models.TextField(default='-')
-    status = models.TextField(default='s')
-    matchid = models.IntegerField(default=0)
-    statusCode = models.IntegerField(default=0)
-    league = models.IntegerField(default=0)
-    startTime = models.IntegerField(default=0)
+    hometeam = models.TextField(null=True)
+    awayteam = models.TextField(null=True)
+    hometeamColor = models.TextField(null=True)
+    awayteamColor = models.TextField(null=True)
+    homescore = models.TextField(null=True)
+    awayscore = models.TextField(null=True)
+    homeformation = models.TextField(null=True)
+    awayFormation = models.TextField(null=True)
+    lineUpConfirmed = models.BooleanField(default=False)
+    status = models.TextField(null=True)
+    matchid = models.TextField(null=True)
+    statusCode = models.TextField(null=True)
+    leagueId = models.TextField(null=True)
+    leagueName = models.TextField(null=True)
+    venue = models.TextField(null=True)
+    isConf = models.BooleanField(null=True)
+    hFormation = models.TextField(null=True)
+    aFormation = models.TextField(null=True)
+
+    countryName = models.TextField(null=True)
+    startTime = models.TextField(null=True)
     def __str__(self):
         return f'{self.hometeam} V {self.awayteam}'
 
 
 class NewsArticles(models.Model):
-    title=models.TextField(default='-')
-    author=models.TextField(default='-')
-    link=models.TextField(default='-')
-    image_url=models.TextField(default='-')
+    title=models.TextField(null=True)
+    author=models.TextField(null=True)
+    description=models.TextField(null=True)
+    datePublished=models.TextField(null=True)
+    link=models.TextField(null=True)
+    image_url=models.TextField(null=True)
     def __str__(self):
         return f'{self.title} '
-
-
 class MatchInfo(models.Model):
     match=models.ForeignKey(AllMatches,on_delete=models.CASCADE)
-    cornerkicksH=models.TextField(default='-')
-    cornerkicksA=models.TextField(default='-')
-    possesionH=models.TextField(default='-')
-    possesionA=models.TextField(default='-')
-    yellowCardsH=models.TextField(default='-')
-    yellowCardsA=models.TextField(default='-')
-    gkSavesH=models.TextField(default='-')
-    gkSavesA=models.TextField(default='-')
-    shotsH=models.TextField(default='-')
-    shotsA=models.TextField(default='-')
+    cornerkicksH=models.TextField(null=True)
+    cornerkicksA=models.TextField(null=True)
+    possesionH=models.TextField(null=True)
+    possesionA=models.TextField(null=True)
+    yellowCardsH=models.TextField(null=True)
+    yellowCardsA=models.TextField(null=True)
+    gkSavesH=models.TextField(null=True)
+    gkSavesA=models.TextField(null=True)
+    shotsH=models.TextField(null=True)
+    shotsA=models.TextField(null=True)
+
+    def __str__(self):
+        return f'{self.match.hometeam} V {self.match.awayteam}'
+
+
 
 
 class MatchLineUp(models.Model):
     match=models.ForeignKey(AllMatches,on_delete=models.CASCADE)
-    player=models.TextField(default='-')
-    number=models.TextField(default='-')
-    position=models.TextField(default='-')
+    player=models.TextField(null=True)
+    number=models.TextField(null=True)
+    position=models.TextField(null=True)
     isHomePlayer=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.player} '
+        return f'{self.match.hometeam} V {self.match.awayteam}'
+
 
 
 class LeagueHomeStandings(models.Model):
-    league = models.IntegerField(default=0)
-    leaguename = models.TextField(default='ln')
-    team = models.TextField(default='ln')
-    rank = models.IntegerField(default=0)
-    mp = models.IntegerField(default=0)
-    gf = models.IntegerField(default=0)
-    ga = models.IntegerField(default=0)
-    wins = models.IntegerField(default=0)
-    draws = models.IntegerField(default=0)
-    losses = models.IntegerField(default=0)
+    league = models.TextField(null=True)
+    team = models.TextField(null=True)
+    rank = models.TextField(null=True)
+    points = models.TextField(null=True)
+    mp = models.TextField(null=True)
+    gf = models.TextField(null=True)
+    ga = models.TextField(null=True)
+    wins = models.TextField(null=True)
+    draws = models.TextField(null=True)
+    losses = models.TextField(null=True)
     def __str__(self):
-        return f'{self.leaguename} '
+        return f'{self.league} '
 
 
 
 class LeagueAwayStandings(models.Model):
-    league = models.IntegerField(default=0)
-    leaguename = models.TextField(default='ln')
-    team = models.TextField(default='ln')
-    rank = models.IntegerField(default=0)
-    mp = models.IntegerField(default=0)
-    gf = models.IntegerField(default=0)
-    ga = models.IntegerField(default=0)
-    wins = models.IntegerField(default=0)
-    draws = models.IntegerField(default=0)
-    losses = models.IntegerField(default=0)
+    league = models.TextField(null=True)
+    team = models.TextField(null=True)
+    rank = models.TextField(null=True)
+    points = models.TextField(null=True)
+    mp = models.TextField(null=True)
+    gf = models.TextField(null=True)
+    ga = models.TextField(null=True)
+    wins = models.TextField(null=True)
+    draws = models.TextField(null=True)
+    losses = models.TextField(null=True)
     def __str__(self):
-        return f'{self.leaguename} '
+        return f'{self.league} '
 
 
 class LeagueOverallStandings(models.Model):
-    league = models.IntegerField(default=0)
-    leaguename = models.TextField(default='ln')
-    team = models.TextField(default='ln')
-    rank = models.IntegerField(default=0)
-    mp = models.IntegerField(default=0)
-    gf = models.IntegerField(default=0)
-    ga = models.IntegerField(default=0)
-    wins = models.IntegerField(default=0)
-    draws = models.IntegerField(default=0)
-    losses = models.IntegerField(default=0)
+    league = models.TextField(null=True)
+    team = models.TextField(null=True)
+    rank = models.TextField(null=True)
+    points = models.TextField(null=True)
+    mp = models.TextField(null=True)
+    gf = models.TextField(null=True)
+    ga = models.TextField(null=True)
+    wins = models.TextField(null=True)
+    draws = models.TextField(null=True)
+    losses = models.TextField(null=True)
     def __str__(self):
-        return f'{self.leaguename} '
+        return f'{self.league} '
 
+class LeagueInfo(models.Model):
+    # league
+    league_id = models.TextField(null=True)
+    league_name = models.TextField(null=True)
+    league_image = models.TextField(null=True)
+    current_league_week = models.TextField(null=True)
+    league_importance = models.TextField(null=True)
 
-class LeagueResults(models.Model):
-    league = models.IntegerField(default=0)
-    leaguename = models.TextField(default='ln')
-    hometeam = models.TextField(default='t')
-    awayteam = models.TextField(default='t')
-    hometeamColor = models.TextField(default='t')
-    awayteamColor = models.TextField(default='t')
-    homescore = models.TextField(default='-')
-    awayscore = models.IntegerField(default='-')
-    status = models.TextField(default='s')
-    matchid = models.IntegerField(default=0)
-    statusCode = models.IntegerField(default=0)
-    startTime = models.IntegerField(default=0)
+    country_name = models.TextField(null=True)
+    season_name = models.TextField(null=True)
+    season_id = models.TextField(null=True)
+
     def __str__(self):
-        return f'{self.hometeam} V {self.awayteam}'
+        return self.league_name
 
-
-class LeagueFixures(models.Model):
-    league = models.IntegerField(default=0)
-    leaguename = models.TextField(default='ln')
-    hometeam = models.TextField(default='t')
-    awayteam = models.TextField(default='t')
-    hometeamColor = models.TextField(default='t')
-    awayteamColor = models.TextField(default='t')
-    homescore = models.TextField(default='-')
-    awayscore = models.IntegerField(default='-')
-    status = models.TextField(default='s')
-    matchid = models.IntegerField(default=0)
-    statusCode = models.IntegerField(default=0)
-    startTime = models.IntegerField(default=0)
-    def __str__(self):
-        return f'{self.hometeam} V {self.awayteam}'
